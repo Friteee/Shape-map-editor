@@ -13,8 +13,17 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    map.cpp \
+    tileset.cpp \
+    tilesetmanager.cpp \
+    addtileset.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    map.h \
+    tileset.h \
+    tilesetmanager.h \
+    addtileset.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    addtileset.ui

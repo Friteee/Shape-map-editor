@@ -13,12 +13,14 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
@@ -30,8 +32,16 @@ public:
     QAction *actionOpen;
     QAction *actionSave;
     QAction *actionSave_as;
+    QAction *actionNew;
+    QAction *actionMap_options;
+    QAction *actionResize;
     QWidget *centralWidget;
-    QGroupBox *groupBox;
+    QGraphicsView *graphicsMap;
+    QTabWidget *tileSetManager;
+    QWidget *Tileset;
+    QTabWidget *tileSets;
+    QPushButton *addButton;
+    QPushButton *deleteButton;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuEdit;
@@ -43,22 +53,52 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1160, 624);
+        MainWindow->resize(1294, 710);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
+        MainWindow->setAcceptDrops(false);
+        MainWindow->setAutoFillBackground(false);
         actionOpen = new QAction(MainWindow);
         actionOpen->setObjectName(QStringLiteral("actionOpen"));
         actionSave = new QAction(MainWindow);
         actionSave->setObjectName(QStringLiteral("actionSave"));
         actionSave_as = new QAction(MainWindow);
         actionSave_as->setObjectName(QStringLiteral("actionSave_as"));
+        actionNew = new QAction(MainWindow);
+        actionNew->setObjectName(QStringLiteral("actionNew"));
+        actionMap_options = new QAction(MainWindow);
+        actionMap_options->setObjectName(QStringLiteral("actionMap_options"));
+        actionResize = new QAction(MainWindow);
+        actionResize->setObjectName(QStringLiteral("actionResize"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        groupBox = new QGroupBox(centralWidget);
-        groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(10, 10, 231, 551));
+        graphicsMap = new QGraphicsView(centralWidget);
+        graphicsMap->setObjectName(QStringLiteral("graphicsMap"));
+        graphicsMap->setGeometry(QRect(470, 10, 811, 641));
+        tileSetManager = new QTabWidget(centralWidget);
+        tileSetManager->setObjectName(QStringLiteral("tileSetManager"));
+        tileSetManager->setGeometry(QRect(30, 10, 381, 441));
+        tileSetManager->setTabsClosable(true);
+        Tileset = new QWidget();
+        Tileset->setObjectName(QStringLiteral("Tileset"));
+        tileSets = new QTabWidget(Tileset);
+        tileSets->setObjectName(QStringLiteral("tileSets"));
+        tileSets->setGeometry(QRect(20, 10, 331, 351));
+        tileSets->setTabPosition(QTabWidget::South);
+        addButton = new QPushButton(Tileset);
+        addButton->setObjectName(QStringLiteral("addButton"));
+        addButton->setGeometry(QRect(20, 370, 51, 23));
+        deleteButton = new QPushButton(Tileset);
+        deleteButton->setObjectName(QStringLiteral("deleteButton"));
+        deleteButton->setGeometry(QRect(80, 370, 51, 23));
+        tileSetManager->addTab(Tileset, QString());
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1160, 21));
+        menuBar->setGeometry(QRect(0, 0, 1294, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuEdit = new QMenu(menuBar);
@@ -76,11 +116,18 @@ public:
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuEdit->menuAction());
         menuBar->addAction(menuOptions->menuAction());
+        menuFile->addAction(actionNew);
         menuFile->addAction(actionOpen);
         menuFile->addAction(actionSave);
         menuFile->addAction(actionSave_as);
+        menuEdit->addAction(actionResize);
+        menuOptions->addAction(actionMap_options);
 
         retranslateUi(MainWindow);
+
+        tileSetManager->setCurrentIndex(0);
+        tileSets->setCurrentIndex(-1);
+
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -93,7 +140,12 @@ public:
         actionSave->setText(QApplication::translate("MainWindow", "Save", 0));
         actionSave->setShortcut(QApplication::translate("MainWindow", "Ctrl+S", 0));
         actionSave_as->setText(QApplication::translate("MainWindow", "Save as", 0));
-        groupBox->setTitle(QApplication::translate("MainWindow", "Tile map", 0));
+        actionNew->setText(QApplication::translate("MainWindow", "New", 0));
+        actionMap_options->setText(QApplication::translate("MainWindow", "Map options", 0));
+        actionResize->setText(QApplication::translate("MainWindow", "Resize", 0));
+        addButton->setText(QApplication::translate("MainWindow", "Add", 0));
+        deleteButton->setText(QApplication::translate("MainWindow", "Delete", 0));
+        tileSetManager->setTabText(tileSetManager->indexOf(Tileset), QApplication::translate("MainWindow", "Tile Set", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         menuEdit->setTitle(QApplication::translate("MainWindow", "Edit", 0));
         menuOptions->setTitle(QApplication::translate("MainWindow", "Options", 0));
