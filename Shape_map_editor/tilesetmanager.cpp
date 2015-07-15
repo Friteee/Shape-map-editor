@@ -18,5 +18,6 @@ void TileSetManager::delete_current()
 
 void TileSetManager::add_tileset(int margin, int size, QString filename)
 {
-
+    //buffer.init(filename,margin,size);
+    tilesets.push_back(TileSet(view));
 }
