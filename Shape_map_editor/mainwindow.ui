@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1294</width>
-    <height>710</height>
+    <height>811</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -29,10 +29,10 @@
    <widget class="QGraphicsView" name="graphicsMap">
     <property name="geometry">
      <rect>
-      <x>470</x>
+      <x>450</x>
       <y>10</y>
-      <width>811</width>
-      <height>641</height>
+      <width>831</width>
+      <height>741</height>
      </rect>
     </property>
    </widget>
@@ -49,7 +49,7 @@
      <number>0</number>
     </property>
     <property name="tabsClosable">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <widget class="QWidget" name="Tileset">
      <attribute name="title">
@@ -97,6 +97,24 @@
        <string>Delete</string>
       </property>
      </widget>
+    </widget>
+   </widget>
+   <widget class="QTabWidget" name="tileTypes">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>460</y>
+      <width>381</width>
+      <height>291</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="TileType">
+     <attribute name="title">
+      <string>Tile Type</string>
+     </attribute>
     </widget>
    </widget>
   </widget>

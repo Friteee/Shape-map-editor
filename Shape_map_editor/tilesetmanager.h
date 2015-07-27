@@ -12,11 +12,12 @@ class TileSetManager
 {
 public:
     TileSetManager(QTabWidget * tab);
+    ~TileSetManager();
     void add();
     void delete_current();
     void add_tileset(int margin, int size, QString filename);
 private:
-    std::list<TileSet> tilesets;
+    std::list<TileSet*> tilesets;
     AddTileset * window;
     QTabWidget * tileset_tab;
 };

@@ -28,5 +28,4 @@ void Map::create_new(QString filename)
     filename_ = filename;
     std::ofstream out;
     out.open(filename_.toStdString().c_str());
-    out.write("Finally" , 7);
 }

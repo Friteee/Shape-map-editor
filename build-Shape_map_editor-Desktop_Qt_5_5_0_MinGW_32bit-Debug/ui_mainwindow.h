@@ -42,6 +42,8 @@ public:
     QTabWidget *tileSets;
     QPushButton *addButton;
     QPushButton *deleteButton;
+    QTabWidget *tileTypes;
+    QWidget *TileType;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuEdit;
@@ -53,7 +55,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1294, 710);
+        MainWindow->resize(1294, 811);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -77,11 +79,11 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         graphicsMap = new QGraphicsView(centralWidget);
         graphicsMap->setObjectName(QStringLiteral("graphicsMap"));
-        graphicsMap->setGeometry(QRect(470, 10, 811, 641));
+        graphicsMap->setGeometry(QRect(450, 10, 831, 741));
         tileSetManager = new QTabWidget(centralWidget);
         tileSetManager->setObjectName(QStringLiteral("tileSetManager"));
         tileSetManager->setGeometry(QRect(30, 10, 381, 441));
-        tileSetManager->setTabsClosable(true);
+        tileSetManager->setTabsClosable(false);
         Tileset = new QWidget();
         Tileset->setObjectName(QStringLiteral("Tileset"));
         tileSets = new QTabWidget(Tileset);
@@ -95,6 +97,12 @@ public:
         deleteButton->setObjectName(QStringLiteral("deleteButton"));
         deleteButton->setGeometry(QRect(80, 370, 51, 23));
         tileSetManager->addTab(Tileset, QString());
+        tileTypes = new QTabWidget(centralWidget);
+        tileTypes->setObjectName(QStringLiteral("tileTypes"));
+        tileTypes->setGeometry(QRect(30, 460, 381, 291));
+        TileType = new QWidget();
+        TileType->setObjectName(QStringLiteral("TileType"));
+        tileTypes->addTab(TileType, QString());
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -127,6 +135,7 @@ public:
 
         tileSetManager->setCurrentIndex(0);
         tileSets->setCurrentIndex(-1);
+        tileTypes->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -146,6 +155,7 @@ public:
         addButton->setText(QApplication::translate("MainWindow", "Add", 0));
         deleteButton->setText(QApplication::translate("MainWindow", "Delete", 0));
         tileSetManager->setTabText(tileSetManager->indexOf(Tileset), QApplication::translate("MainWindow", "Tile Set", 0));
+        tileTypes->setTabText(tileTypes->indexOf(TileType), QApplication::translate("MainWindow", "Tile Type", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         menuEdit->setTitle(QApplication::translate("MainWindow", "Edit", 0));
         menuOptions->setTitle(QApplication::translate("MainWindow", "Options", 0));

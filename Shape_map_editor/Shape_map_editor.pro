@@ -17,13 +17,15 @@ SOURCES += main.cpp\
     map.cpp \
     tileset.cpp \
     tilesetmanager.cpp \
-    addtileset.cpp
+    addtileset.cpp \
+    objecttype.cpp
 
 HEADERS  += mainwindow.h \
     map.h \
     tileset.h \
     tilesetmanager.h \
-    addtileset.h
+    addtileset.h \
+    objecttype.h
 
 FORMS    += mainwindow.ui \
     addtileset.ui
