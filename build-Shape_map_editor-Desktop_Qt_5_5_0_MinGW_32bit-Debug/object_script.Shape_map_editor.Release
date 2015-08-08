@@ -1,0 +1,15 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\map.o
+./release\tileset.o
+./release\tilesetmanager.o
+./release\addtileset.o
+./release\objecttype.o
+./release\currenttype.o
+./release\object.o
+./release\mapsettings.o
+./release\moc_mainwindow.o
+./release\moc_addtileset.o
+./release\moc_mapsettings.o
+);

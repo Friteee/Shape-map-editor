@@ -13,8 +13,12 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -35,15 +39,21 @@ public:
     QAction *actionNew;
     QAction *actionMap_options;
     QAction *actionResize;
+    QAction *actionChange_background;
     QWidget *centralWidget;
-    QGraphicsView *graphicsMap;
+    QGridLayout *gridLayout;
     QTabWidget *tileSetManager;
     QWidget *Tileset;
     QTabWidget *tileSets;
     QPushButton *addButton;
     QPushButton *deleteButton;
+    QGraphicsView *graphicsMap;
     QTabWidget *tileTypes;
     QWidget *TileType;
+    QLineEdit *lineEdit;
+    QGraphicsView *graphicsView;
+    QComboBox *comboBox;
+    QCheckBox *checkBox;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuEdit;
@@ -55,7 +65,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1294, 811);
+        MainWindow->resize(1173, 713);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -75,14 +85,18 @@ public:
         actionMap_options->setObjectName(QStringLiteral("actionMap_options"));
         actionResize = new QAction(MainWindow);
         actionResize->setObjectName(QStringLiteral("actionResize"));
+        actionChange_background = new QAction(MainWindow);
+        actionChange_background->setObjectName(QStringLiteral("actionChange_background"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        graphicsMap = new QGraphicsView(centralWidget);
-        graphicsMap->setObjectName(QStringLiteral("graphicsMap"));
-        graphicsMap->setGeometry(QRect(450, 10, 831, 741));
+        gridLayout = new QGridLayout(centralWidget);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         tileSetManager = new QTabWidget(centralWidget);
         tileSetManager->setObjectName(QStringLiteral("tileSetManager"));
-        tileSetManager->setGeometry(QRect(30, 10, 381, 441));
+        tileSetManager->setMinimumSize(QSize(380, 430));
+        tileSetManager->setMaximumSize(QSize(380, 430));
         tileSetManager->setTabsClosable(false);
         Tileset = new QWidget();
         Tileset->setObjectName(QStringLiteral("Tileset"));
@@ -97,16 +111,49 @@ public:
         deleteButton->setObjectName(QStringLiteral("deleteButton"));
         deleteButton->setGeometry(QRect(80, 370, 51, 23));
         tileSetManager->addTab(Tileset, QString());
+
+        gridLayout->addWidget(tileSetManager, 0, 0, 2, 1);
+
+        graphicsMap = new QGraphicsView(centralWidget);
+        graphicsMap->setObjectName(QStringLiteral("graphicsMap"));
+        graphicsMap->setMinimumSize(QSize(400, 400));
+        graphicsMap->setAutoFillBackground(true);
+        graphicsMap->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
+
+        gridLayout->addWidget(graphicsMap, 0, 1, 4, 1);
+
         tileTypes = new QTabWidget(centralWidget);
         tileTypes->setObjectName(QStringLiteral("tileTypes"));
-        tileTypes->setGeometry(QRect(30, 460, 381, 291));
+        tileTypes->setMinimumSize(QSize(380, 200));
+        tileTypes->setMaximumSize(QSize(380, 200));
         TileType = new QWidget();
         TileType->setObjectName(QStringLiteral("TileType"));
+        lineEdit = new QLineEdit(TileType);
+        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+        lineEdit->setGeometry(QRect(160, 50, 113, 20));
+        graphicsView = new QGraphicsView(TileType);
+        graphicsView->setObjectName(QStringLiteral("graphicsView"));
+        graphicsView->setGeometry(QRect(50, 40, 64, 64));
+        graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        graphicsView->setInteractive(false);
+        graphicsView->setTransformationAnchor(QGraphicsView::NoAnchor);
+        graphicsView->setResizeAnchor(QGraphicsView::NoAnchor);
+        graphicsView->setRubberBandSelectionMode(Qt::ContainsItemShape);
+        comboBox = new QComboBox(TileType);
+        comboBox->setObjectName(QStringLiteral("comboBox"));
+        comboBox->setGeometry(QRect(160, 10, 111, 22));
+        checkBox = new QCheckBox(TileType);
+        checkBox->setObjectName(QStringLiteral("checkBox"));
+        checkBox->setGeometry(QRect(160, 90, 111, 17));
         tileTypes->addTab(TileType, QString());
+
+        gridLayout->addWidget(tileTypes, 2, 0, 1, 1);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1294, 21));
+        menuBar->setGeometry(QRect(0, 0, 1173, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuEdit = new QMenu(menuBar);
@@ -129,6 +176,7 @@ public:
         menuFile->addAction(actionSave);
         menuFile->addAction(actionSave_as);
         menuEdit->addAction(actionResize);
+        menuEdit->addAction(actionChange_background);
         menuOptions->addAction(actionMap_options);
 
         retranslateUi(MainWindow);
@@ -152,9 +200,16 @@ public:
         actionNew->setText(QApplication::translate("MainWindow", "New", 0));
         actionMap_options->setText(QApplication::translate("MainWindow", "Map options", 0));
         actionResize->setText(QApplication::translate("MainWindow", "Resize", 0));
+        actionChange_background->setText(QApplication::translate("MainWindow", "Change background", 0));
         addButton->setText(QApplication::translate("MainWindow", "Add", 0));
         deleteButton->setText(QApplication::translate("MainWindow", "Delete", 0));
         tileSetManager->setTabText(tileSetManager->indexOf(Tileset), QApplication::translate("MainWindow", "Tile Set", 0));
+        comboBox->clear();
+        comboBox->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "Tile", 0)
+         << QApplication::translate("MainWindow", "Prop", 0)
+        );
+        checkBox->setText(QApplication::translate("MainWindow", "Invincible", 0));
         tileTypes->setTabText(tileTypes->indexOf(TileType), QApplication::translate("MainWindow", "Tile Type", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         menuEdit->setTitle(QApplication::translate("MainWindow", "Edit", 0));

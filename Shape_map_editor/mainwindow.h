@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QGraphicsScene>
+#include "currenttype.h"
 #include "tilesetmanager.h"
 #include "map.h"
 
@@ -29,7 +30,20 @@ private slots:
 
     void on_deleteButton_clicked();
 
+    void on_comboBox_editTextChanged(const QString &arg1);
+
+    void on_lineEdit_textChanged(const QString &arg1);
+
+    void on_actionChange_background_triggered();
+
+    void on_checkBox_toggled(bool checked);
+
+    void on_actionSave_triggered();
+
+    void on_actionResize_triggered();
+
 private:
+    CurrentType current_type;
     Map main_map;
     QGraphicsScene * scene;
     TileSetManager * tilesets_manager;

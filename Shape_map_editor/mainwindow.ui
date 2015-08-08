@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1294</width>
-    <height>811</height>
+    <width>1173</width>
+    <height>713</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -26,104 +26,195 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QGraphicsView" name="graphicsMap">
-    <property name="geometry">
-     <rect>
-      <x>450</x>
-      <y>10</y>
-      <width>831</width>
-      <height>741</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTabWidget" name="tileSetManager">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>10</y>
-      <width>381</width>
-      <height>441</height>
-     </rect>
-    </property>
-    <property name="currentIndex">
-     <number>0</number>
-    </property>
-    <property name="tabsClosable">
-     <bool>false</bool>
-    </property>
-    <widget class="QWidget" name="Tileset">
-     <attribute name="title">
-      <string>Tile Set</string>
-     </attribute>
-     <widget class="QTabWidget" name="tileSets">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>10</y>
-        <width>331</width>
-        <height>351</height>
-       </rect>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0" rowspan="2">
+     <widget class="QTabWidget" name="tileSetManager">
+      <property name="minimumSize">
+       <size>
+        <width>380</width>
+        <height>430</height>
+       </size>
       </property>
-      <property name="tabPosition">
-       <enum>QTabWidget::South</enum>
+      <property name="maximumSize">
+       <size>
+        <width>380</width>
+        <height>430</height>
+       </size>
       </property>
       <property name="currentIndex">
-       <number>-1</number>
+       <number>0</number>
+      </property>
+      <property name="tabsClosable">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="Tileset">
+       <attribute name="title">
+        <string>Tile Set</string>
+       </attribute>
+       <widget class="QTabWidget" name="tileSets">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>10</y>
+          <width>331</width>
+          <height>351</height>
+         </rect>
+        </property>
+        <property name="tabPosition">
+         <enum>QTabWidget::South</enum>
+        </property>
+        <property name="currentIndex">
+         <number>-1</number>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="addButton">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>370</y>
+          <width>51</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Add</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="deleteButton">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>370</y>
+          <width>51</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Delete</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+    <item row="0" column="1" rowspan="4">
+     <widget class="QGraphicsView" name="graphicsMap">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>400</height>
+       </size>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="addButton">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>370</y>
-        <width>51</width>
-        <height>23</height>
-       </rect>
+    </item>
+    <item row="2" column="0">
+     <widget class="QTabWidget" name="tileTypes">
+      <property name="minimumSize">
+       <size>
+        <width>380</width>
+        <height>200</height>
+       </size>
       </property>
-      <property name="text">
-       <string>Add</string>
+      <property name="maximumSize">
+       <size>
+        <width>380</width>
+        <height>200</height>
+       </size>
       </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="TileType">
+       <attribute name="title">
+        <string>Tile Type</string>
+       </attribute>
+       <widget class="QLineEdit" name="lineEdit">
+        <property name="geometry">
+         <rect>
+          <x>160</x>
+          <y>50</y>
+          <width>113</width>
+          <height>20</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QGraphicsView" name="graphicsView">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>40</y>
+          <width>64</width>
+          <height>64</height>
+         </rect>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="interactive">
+         <bool>false</bool>
+        </property>
+        <property name="transformationAnchor">
+         <enum>QGraphicsView::NoAnchor</enum>
+        </property>
+        <property name="resizeAnchor">
+         <enum>QGraphicsView::NoAnchor</enum>
+        </property>
+        <property name="rubberBandSelectionMode">
+         <enum>Qt::ContainsItemShape</enum>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="comboBox">
+        <property name="geometry">
+         <rect>
+          <x>160</x>
+          <y>10</y>
+          <width>111</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>Tile</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Prop</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QCheckBox" name="checkBox">
+        <property name="geometry">
+         <rect>
+          <x>160</x>
+          <y>90</y>
+          <width>111</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Invincible</string>
+        </property>
+       </widget>
+      </widget>
      </widget>
-     <widget class="QPushButton" name="deleteButton">
-      <property name="geometry">
-       <rect>
-        <x>80</x>
-        <y>370</y>
-        <width>51</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Delete</string>
-      </property>
-     </widget>
-    </widget>
-   </widget>
-   <widget class="QTabWidget" name="tileTypes">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>460</y>
-      <width>381</width>
-      <height>291</height>
-     </rect>
-    </property>
-    <property name="currentIndex">
-     <number>0</number>
-    </property>
-    <widget class="QWidget" name="TileType">
-     <attribute name="title">
-      <string>Tile Type</string>
-     </attribute>
-    </widget>
-   </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1294</width>
+     <width>1173</width>
      <height>21</height>
     </rect>
    </property>
@@ -141,6 +232,7 @@
      <string>Edit</string>
     </property>
     <addaction name="actionResize"/>
+    <addaction name="actionChange_background"/>
    </widget>
    <widget class="QMenu" name="menuOptions">
     <property name="title">
@@ -195,6 +287,11 @@
   <action name="actionResize">
    <property name="text">
     <string>Resize</string>
+   </property>
+  </action>
+  <action name="actionChange_background">
+   <property name="text">
+    <string>Change background</string>
    </property>
   </action>
  </widget>

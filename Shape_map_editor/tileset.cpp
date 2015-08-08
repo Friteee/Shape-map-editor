@@ -2,6 +2,8 @@
 #include <QMessageBox>
 #include <QString>
 
+
+
 TileSet::TileSet(QWidget * parent):
     QGraphicsView(parent)
 {
@@ -10,6 +12,7 @@ TileSet::TileSet(QWidget * parent):
     this->setScene(tileset_image_scene);
     margin = 0;
     size = 32;
+    filename = "";
 }
 
 void TileSet::draw_grid()
@@ -27,8 +30,9 @@ void TileSet::draw_grid()
     }
 }
 
-void TileSet::init(QString filename , int init_margin , int init_size)
+void TileSet::init(QString init_filename , int init_margin , int init_size)
 {
+    filename = init_filename;
     tileset_image = new QPixmap(filename);
     if(tileset_image->isNull())
     {
@@ -43,6 +47,7 @@ void TileSet::init(QString filename , int init_margin , int init_size)
 
 void TileSet::mousePressEvent(QMouseEvent * e)
 {
+    // blit the rectangle to tileset as partly invisible square
     if(rectangle != 0)
     {
         tileset_image_scene->removeItem(rectangle);
@@ -54,5 +59,22 @@ void TileSet::mousePressEvent(QMouseEvent * e)
     point.setX(point.x() - point.x() % (margin + size) + margin / 2 - 1);
     point.setY(point.y() - point.y() % (margin + size) + margin / 2 - 1);
     rectangle = tileset_image_scene->addRect(point.x() , point.y() , qreal(size) + 1 , qreal(size) + 1, QPen(), QBrush(QColor(255, 255, 255, 128)));
+    // initialize current types image
+    QRect crop_rect;
+    crop_rect.setX(point.x() + 1);
+    crop_rect.setY(point.y() + 1);
+    crop_rect.setWidth(size);
+    crop_rect.setHeight(size);
+    Picture buffer;
+    buffer.first = filename;
+    buffer.second = crop_rect;
+    type->init_picture(buffer);
 
+}
+
+
+
+void TileSet::registerMousePress(CurrentType * init_type)
+{
+    type = init_type;
 }

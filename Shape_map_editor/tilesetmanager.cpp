@@ -41,5 +41,11 @@ void TileSetManager::add_tileset(int margin, int size, QString filename)
     if(tileset_tab!=0)
         tileset_tab->addTab(buffer_tile_set,filename);
     buffer_tile_set->init(filename,margin,size);
+    buffer_tile_set->registerMousePress(current);
     tilesets.push_back(buffer_tile_set);
+}
+
+void TileSetManager::register_current_type(CurrentType * init_current)
+{
+    current = init_current;
 }

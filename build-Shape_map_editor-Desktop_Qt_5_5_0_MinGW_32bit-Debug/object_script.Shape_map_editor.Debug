@@ -1,0 +1,15 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\map.o
+./debug\tileset.o
+./debug\tilesetmanager.o
+./debug\addtileset.o
+./debug\objecttype.o
+./debug\currenttype.o
+./debug\object.o
+./debug\mapsettings.o
+./debug\moc_mainwindow.o
+./debug\moc_addtileset.o
+./debug\moc_mapsettings.o
+);
