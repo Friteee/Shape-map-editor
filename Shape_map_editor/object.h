@@ -2,21 +2,24 @@
 #define OBJECT_H
 
 #include "objecttype.h"
+#include <memory>
 #include <QRect>
+#include <QGraphicsPixmapItem>
 
-class Object
+class Object : public QGraphicsPixmapItem
 {
 public:
-    Object();
+    Object(QGraphicsItem * parent = 0);
 
     QRect get_rect();
-    ObjectType * get_type();
+    std::shared_ptr<ObjectType> get_type();
+    QGraphicsPixmapItem & get_item();
     void change_rect(QRect init_rectangle);
-    void change_type(ObjectType * init_type);
+    void change_type(std::shared_ptr<ObjectType> init_type);
 
 private:
-    //type of this object
-    ObjectType * type;
+    // type of this object
+    std::shared_ptr<ObjectType> type;
     // coordinates and size of the object
     QRect coordinates;
 };

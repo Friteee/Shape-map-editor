@@ -60,6 +60,9 @@
           <height>351</height>
          </rect>
         </property>
+        <property name="whatsThis">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Graphical representation of tile set&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="tabPosition">
          <enum>QTabWidget::South</enum>
         </property>
@@ -104,6 +107,9 @@
         <height>400</height>
        </size>
       </property>
+      <property name="whatsThis">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Map&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
       <property name="autoFillBackground">
        <bool>true</bool>
       </property>
@@ -142,6 +148,12 @@
           <height>20</height>
          </rect>
         </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Size of the object in pixels&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>32</string>
+        </property>
        </widget>
        <widget class="QGraphicsView" name="graphicsView">
         <property name="geometry">
@@ -151,6 +163,9 @@
           <width>64</width>
           <height>64</height>
          </rect>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Image of the tile&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="verticalScrollBarPolicy">
          <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -179,6 +194,9 @@
           <width>111</width>
           <height>22</height>
          </rect>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Type of the object&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <item>
          <property name="text">

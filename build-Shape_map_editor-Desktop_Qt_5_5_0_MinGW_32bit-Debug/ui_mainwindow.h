@@ -201,14 +201,30 @@ public:
         actionMap_options->setText(QApplication::translate("MainWindow", "Map options", 0));
         actionResize->setText(QApplication::translate("MainWindow", "Resize", 0));
         actionChange_background->setText(QApplication::translate("MainWindow", "Change background", 0));
+#ifndef QT_NO_WHATSTHIS
+        tileSets->setWhatsThis(QApplication::translate("MainWindow", "<html><head/><body><p>Graphical representation of tile set</p><p><br/></p></body></html>", 0));
+#endif // QT_NO_WHATSTHIS
         addButton->setText(QApplication::translate("MainWindow", "Add", 0));
         deleteButton->setText(QApplication::translate("MainWindow", "Delete", 0));
         tileSetManager->setTabText(tileSetManager->indexOf(Tileset), QApplication::translate("MainWindow", "Tile Set", 0));
+#ifndef QT_NO_WHATSTHIS
+        graphicsMap->setWhatsThis(QApplication::translate("MainWindow", "<html><head/><body><p>Map</p></body></html>", 0));
+#endif // QT_NO_WHATSTHIS
+#ifndef QT_NO_TOOLTIP
+        lineEdit->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>Size of the object in pixels</p></body></html>", 0));
+#endif // QT_NO_TOOLTIP
+        lineEdit->setText(QApplication::translate("MainWindow", "32", 0));
+#ifndef QT_NO_WHATSTHIS
+        graphicsView->setWhatsThis(QApplication::translate("MainWindow", "<html><head/><body><p>Image of the tile</p></body></html>", 0));
+#endif // QT_NO_WHATSTHIS
         comboBox->clear();
         comboBox->insertItems(0, QStringList()
          << QApplication::translate("MainWindow", "Tile", 0)
          << QApplication::translate("MainWindow", "Prop", 0)
         );
+#ifndef QT_NO_TOOLTIP
+        comboBox->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>Type of the object</p></body></html>", 0));
+#endif // QT_NO_TOOLTIP
         checkBox->setText(QApplication::translate("MainWindow", "Invincible", 0));
         tileTypes->setTabText(tileTypes->indexOf(TileType), QApplication::translate("MainWindow", "Tile Type", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));

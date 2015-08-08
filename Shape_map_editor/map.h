@@ -7,6 +7,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QPixmap>
+#include "currenttype.h"
 #include "objecttype.h"
 #include "mapsettings.h"
 #include "object.h"
@@ -30,14 +31,19 @@ public:
     void createNew(QString filename);
     void changeSize();
     void changeBackground(QString backgrounds);
+    void setCurrentType(CurrentType * init_type);
     void drawBackground(QPainter * painter, const QRectF & rect)override;
     inline std::vector<std::shared_ptr<ObjectType>> & get_types()
     {
         return types_;
     }
+public slots:
+
+    void mousePressEvent(QGraphicsSceneMouseEvent * mouseEvent);
 
 private:
-    std::vector<int>                         tiles_;
+    CurrentType *                            current_type_;
+    std::vector<std::shared_ptr<Object>>     tiles_;
     std::vector<std::shared_ptr<ObjectType>> types_;
     QGraphicsView *                          view_;
     MapSettings *                            settings_;

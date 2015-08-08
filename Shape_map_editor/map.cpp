@@ -1,6 +1,7 @@
 #include "map.h"
 #include <QFile>
 #include <QTextStream>
+#include <QGraphicsSceneDragDropEvent>
 #include <QMessageBox>
 
 Map::Map(QObject * parent):
@@ -11,8 +12,9 @@ Map::Map(QObject * parent):
     {
         QMessageBox::critical(0,tr("Warning"),tr("No object found"));
     }
-    size_.setHeight(1800);
-    size_.setWidth(1800);
+    size_.setHeight(5000);
+    size_.setWidth(5000);
+    this->setSceneRect(0, 0, size_.width(), size_.height());
 }
 
 Map::Map(QGraphicsView * init_view , QObject * parent)
@@ -20,8 +22,8 @@ Map::Map(QGraphicsView * init_view , QObject * parent)
 {
     view_ = init_view;
     view_->setScene(this);
-    this->setSceneRect(0,0,view_->width(),view_->height());
     background_image_.load("images\\changeme.bmp");
+    this->setSceneRect(0, 0, size_.width(), size_.height());
 }
 
 void Map::init(QGraphicsView * init_view)
@@ -33,7 +35,45 @@ void Map::init(QGraphicsView * init_view)
 
 void Map::drawBackground(QPainter * painter, const QRectF & rect)
 {
-    painter->drawPixmap(0, 0, view_->width(), view_->height(), background_image_ );
+    painter->drawPixmap(static_cast<int>(rect.x()), static_cast<int>(rect.y()), view_->width(), view_->height(), background_image_ );
+}
+
+void Map::mousePressEvent(QGraphicsSceneMouseEvent * mouseEvent)
+{
+    std::shared_ptr<ObjectType> current_object_type = current_type_->get_current_type();
+    bool unique = true;
+    for(auto a : types_)
+    {
+        if(*a == *current_object_type)
+        {
+            current_object_type = a;
+            unique = false;
+            break;
+        }
+    }
+    if(unique)
+    {
+        types_.push_back(current_object_type);
+    }
+    Qt::MouseButtons buttons = mouseEvent->buttons();
+    if(!buttons.testFlag(Qt::LeftButton) || current_object_type->get_picture().first.isNull())
+    {
+        QMessageBox::critical(view_,tr("Warning"),tr("Lol"));
+        return;
+    }
+    std::shared_ptr<Object> buffer;
+    QPixmap pixmap_buffer(current_object_type->get_picture().first);
+    pixmap_buffer = pixmap_buffer.copy(current_object_type->get_picture().second);
+    buffer->setPixmap(pixmap_buffer);
+    QRect buffer_rect;
+    QPointF object_point = mouseEvent->buttonDownScenePos(Qt::LeftButton);
+    buffer_rect.setX(object_point.x());
+    buffer_rect.setY(object_point.y());
+    buffer_rect.setSize(current_object_type->get_size());
+    buffer->change_rect(buffer_rect);
+    buffer->change_type(current_object_type);
+    tiles_.push_back(buffer);
+    this->addItem(buffer.get());
 }
 
 void Map::open(QString filename)
@@ -123,4 +163,9 @@ void Map::changeSize()
 {
     settings_ = new MapSettings(this , view_);
     settings_->show();
+}
+
+void Map::setCurrentType(CurrentType * init_type)
+{
+    current_type_ = init_type;
 }

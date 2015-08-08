@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QPainter painter;
     main_map.drawBackground(&painter,QRect(0,0,main_map.width(),main_map.height()));
     ui->graphicsMap->show();
+    main_map.setCurrentType(&current_type);
 }
 
 MainWindow::~MainWindow()

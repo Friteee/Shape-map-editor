@@ -1,6 +1,7 @@
 #include "object.h"
 
-Object::Object()
+Object::Object(QGraphicsItem * parent ):
+    QGraphicsPixmapItem (parent)
 {
     type = nullptr;
     coordinates.setX(0);
@@ -14,7 +15,7 @@ QRect Object::get_rect()
     return coordinates;
 }
 
-ObjectType * Object::get_type()
+std::shared_ptr<ObjectType> Object::get_type()
 {
     return type;
 }
@@ -24,7 +25,7 @@ void Object::change_rect(QRect init_rectangle)
     coordinates = init_rectangle;
 }
 
-void Object::change_type(ObjectType * init_type)
+void Object::change_type(std::shared_ptr<ObjectType> init_type)
 {
     type = init_type;
 }
