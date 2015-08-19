@@ -48,7 +48,7 @@ public:
 
 private:
 
-    //
+    // id number
     unsigned int id;
     // file and cropping rectangle of this tile type
     Picture image;

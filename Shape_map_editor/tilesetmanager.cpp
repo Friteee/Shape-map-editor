@@ -4,6 +4,7 @@ TileSetManager::TileSetManager(QTabWidget * tab)
 {
     tileset_tab = tab;
     window = 0;
+    current = 0;
 }
 
 TileSetManager::~TileSetManager()

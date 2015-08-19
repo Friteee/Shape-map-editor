@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     objecttype.cpp \
     currenttype.cpp \
     object.cpp \
-    mapsettings.cpp
+    mapsettings.cpp \
+    toolbar.cpp
 
 HEADERS  += mainwindow.h \
     map.h \
@@ -31,8 +32,12 @@ HEADERS  += mainwindow.h \
     objecttype.h \
     currenttype.h \
     object.h \
-    mapsettings.h
+    mapsettings.h \
+    toolbar.h
 
 FORMS    += mainwindow.ui \
     addtileset.ui \
     mapsettings.ui
+
+RESOURCES += \
+    resources.qrc

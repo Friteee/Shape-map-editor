@@ -26,9 +26,9 @@ class Ui_MapSettings
 {
 public:
     QFormLayout *formLayout;
-    QLineEdit *lineEdit_2;
+    QLineEdit *widthEdit;
     QDialogButtonBox *buttonBox;
-    QLineEdit *lineEdit;
+    QLineEdit *heightEdit;
     QLabel *label;
     QLabel *label_2;
 
@@ -39,10 +39,10 @@ public:
         MapSettings->resize(266, 99);
         formLayout = new QFormLayout(MapSettings);
         formLayout->setObjectName(QStringLiteral("formLayout"));
-        lineEdit_2 = new QLineEdit(MapSettings);
-        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
+        widthEdit = new QLineEdit(MapSettings);
+        widthEdit->setObjectName(QStringLiteral("widthEdit"));
 
-        formLayout->setWidget(0, QFormLayout::FieldRole, lineEdit_2);
+        formLayout->setWidget(0, QFormLayout::FieldRole, widthEdit);
 
         buttonBox = new QDialogButtonBox(MapSettings);
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
@@ -51,10 +51,10 @@ public:
 
         formLayout->setWidget(2, QFormLayout::FieldRole, buttonBox);
 
-        lineEdit = new QLineEdit(MapSettings);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+        heightEdit = new QLineEdit(MapSettings);
+        heightEdit->setObjectName(QStringLiteral("heightEdit"));
 
-        formLayout->setWidget(1, QFormLayout::FieldRole, lineEdit);
+        formLayout->setWidget(1, QFormLayout::FieldRole, heightEdit);
 
         label = new QLabel(MapSettings);
         label->setObjectName(QStringLiteral("label"));

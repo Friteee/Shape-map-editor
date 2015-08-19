@@ -24,16 +24,15 @@ void ObjectType::init(Object_kind init_kind, QSize init_size , bool is_invincibl
 
 bool ObjectType::operator==(const ObjectType & arg)
 {
-    bool returned = true;
-    if(this->invincible != arg.invincible &&
-            this->kind != arg.kind &&
-            this->size != arg.size &&
-            this->image.first != arg.image.first &&
-            this->image.second == arg.image.second)
+    if(this->invincible != arg.invincible ||
+            this->kind != arg.kind ||
+            this->size != arg.size ||
+            this->image.first != arg.image.first ||
+            this->image.second != arg.image.second)
     {
-        returned = false;
+        return false;
     }
-    return returned;
+    return true;
 }
 
 void ObjectType::init_picture(Picture init_picture)

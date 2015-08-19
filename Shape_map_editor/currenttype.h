@@ -16,9 +16,9 @@ public:
     void init_view(QGraphicsView * view);
     void init_picture(Picture init);
     void change_invincibility(bool invincible);
-    void change_type(const QString type);
+    void change_type(int type);
     void change_size(const QString size);
-    inline std::shared_ptr<ObjectType>& get_current_type()
+    inline std::shared_ptr<ObjectType> get_current_type()
     {
         return current_type;
     }

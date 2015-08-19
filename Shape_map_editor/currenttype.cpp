@@ -2,6 +2,7 @@
 #include <QMessageBox>
 #include <QGraphicsItem>
 #include "currenttype.h"
+#include <iostream>
 
 CurrentType::CurrentType()
 {
@@ -18,6 +19,8 @@ void CurrentType::init_view(QGraphicsView * init_view)
 
 void CurrentType::init_picture(Picture init)
 {
+    std::shared_ptr<ObjectType> buffer_type = std::make_shared<ObjectType>(ObjectType());
+    *buffer_type = *current_type;
     if(init.first.isNull())
     {
         return;
@@ -25,25 +28,29 @@ void CurrentType::init_picture(Picture init)
     QPixmap buffer(init.first);
     buffer = buffer.copy(init.second);
     buffer = buffer.scaled(QSize(64,64));
+    buffer_type->init_picture(init);
+    current_type = buffer_type;
     image->addPixmap(buffer);
 }
 
 void CurrentType::change_invincibility(bool invincible)
 {
-    std::shared_ptr<ObjectType> buffer = current_type;
+    std::shared_ptr<ObjectType> buffer = std::make_shared<ObjectType>(ObjectType());
+    *buffer = *current_type;
     buffer->init(buffer->get_kind(), buffer->get_size(), invincible);
     current_type = buffer;
 }
 
-void CurrentType::change_type(const QString type)
+void CurrentType::change_type(int type)
 {
-    std::shared_ptr<ObjectType> buffer = current_type;
+    std::shared_ptr<ObjectType> buffer = std::make_shared<ObjectType>(ObjectType());
+    *buffer = *current_type;
     Object_kind kind;
-    if(type == "Prop")
+    if(type == 1)
     {
         kind = PROP;
     }
-    else
+    else if(type == 0)
     {
         kind = TILE;
     }
@@ -53,7 +60,8 @@ void CurrentType::change_type(const QString type)
 
 void CurrentType::change_size(const QString size)
 {
-    std::shared_ptr<ObjectType> buffer = current_type;
+    std::shared_ptr<ObjectType> buffer = std::make_shared<ObjectType>(ObjectType());
+    *buffer = *current_type;
     int size_int = size.toInt();
     buffer->init(buffer->get_kind(), QSize(size_int,size_int), buffer->get_invincibility());
     current_type = buffer;

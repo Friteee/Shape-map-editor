@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>eraser.ico</file>
+        <file>pencil.ico</file>
+        <file>move.png</file>
+    </qresource>
+</RCC>

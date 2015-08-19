@@ -9,6 +9,8 @@ INPUT(
 ./debug\currenttype.o
 ./debug\object.o
 ./debug\mapsettings.o
+./debug\toolbar.o
+./debug\qrc_resources.o
 ./debug\moc_mainwindow.o
 ./debug\moc_addtileset.o
 ./debug\moc_mapsettings.o

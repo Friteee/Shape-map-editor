@@ -9,6 +9,8 @@ INPUT(
 ./release\currenttype.o
 ./release\object.o
 ./release\mapsettings.o
+./release\toolbar.o
+./release\qrc_resources.o
 ./release\moc_mainwindow.o
 ./release\moc_addtileset.o
 ./release\moc_mapsettings.o

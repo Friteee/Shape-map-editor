@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1173</width>
-    <height>713</height>
+    <height>733</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -27,97 +27,6 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" rowspan="2">
-     <widget class="QTabWidget" name="tileSetManager">
-      <property name="minimumSize">
-       <size>
-        <width>380</width>
-        <height>430</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>380</width>
-        <height>430</height>
-       </size>
-      </property>
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <property name="tabsClosable">
-       <bool>false</bool>
-      </property>
-      <widget class="QWidget" name="Tileset">
-       <attribute name="title">
-        <string>Tile Set</string>
-       </attribute>
-       <widget class="QTabWidget" name="tileSets">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>10</y>
-          <width>331</width>
-          <height>351</height>
-         </rect>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Graphical representation of tile set&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="tabPosition">
-         <enum>QTabWidget::South</enum>
-        </property>
-        <property name="currentIndex">
-         <number>-1</number>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="addButton">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>370</y>
-          <width>51</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Add</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="deleteButton">
-        <property name="geometry">
-         <rect>
-          <x>80</x>
-          <y>370</y>
-          <width>51</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Delete</string>
-        </property>
-       </widget>
-      </widget>
-     </widget>
-    </item>
-    <item row="0" column="1" rowspan="4">
-     <widget class="QGraphicsView" name="graphicsMap">
-      <property name="minimumSize">
-       <size>
-        <width>400</width>
-        <height>400</height>
-       </size>
-      </property>
-      <property name="whatsThis">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Map&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="autoFillBackground">
-       <bool>true</bool>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-      </property>
-     </widget>
-    </item>
     <item row="2" column="0">
      <widget class="QTabWidget" name="tileTypes">
       <property name="minimumSize">
@@ -225,6 +134,106 @@
       </widget>
      </widget>
     </item>
+    <item row="0" column="0" rowspan="2">
+     <widget class="QTabWidget" name="tileSetManager">
+      <property name="minimumSize">
+       <size>
+        <width>380</width>
+        <height>430</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>380</width>
+        <height>430</height>
+       </size>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <property name="tabsClosable">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="Tileset">
+       <attribute name="title">
+        <string>Tile Set</string>
+       </attribute>
+       <widget class="QTabWidget" name="tileSets">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>10</y>
+          <width>331</width>
+          <height>351</height>
+         </rect>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Graphical representation of tile set&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="tabPosition">
+         <enum>QTabWidget::South</enum>
+        </property>
+        <property name="currentIndex">
+         <number>-1</number>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="addButton">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>370</y>
+          <width>51</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Add</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="deleteButton">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>370</y>
+          <width>51</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Delete</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+    <item row="0" column="1" rowspan="4">
+     <widget class="QGraphicsView" name="graphicsMap">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>400</height>
+       </size>
+      </property>
+      <property name="whatsThis">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Map&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -252,15 +261,8 @@
     <addaction name="actionResize"/>
     <addaction name="actionChange_background"/>
    </widget>
-   <widget class="QMenu" name="menuOptions">
-    <property name="title">
-     <string>Options</string>
-    </property>
-    <addaction name="actionMap_options"/>
-   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
-   <addaction name="menuOptions"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="mainToolBar">
@@ -270,6 +272,9 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionDraw"/>
+   <addaction name="actionErase"/>
+   <addaction name="actionMove"/>
   </widget>
   <action name="actionOpen">
    <property name="text">
@@ -297,13 +302,11 @@
     <string>New</string>
    </property>
   </action>
-  <action name="actionMap_options">
-   <property name="text">
-    <string>Map options</string>
-   </property>
-  </action>
   <action name="actionResize">
    <property name="text">
+    <string>Map settings</string>
+   </property>
+   <property name="toolTip">
     <string>Resize</string>
    </property>
   </action>
@@ -312,8 +315,56 @@
     <string>Change background</string>
    </property>
   </action>
+  <action name="actionDraw">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/pencil.ico</normaloff>:/icons/pencil.ico</iconset>
+   </property>
+   <property name="text">
+    <string>Draw</string>
+   </property>
+   <property name="toolTip">
+    <string>Draw tiles</string>
+   </property>
+  </action>
+  <action name="actionErase">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normalon>:/icons/eraser.ico</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Erase</string>
+   </property>
+   <property name="toolTip">
+    <string>Erase tiles</string>
+   </property>
+  </action>
+  <action name="actionMove">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/move.png</normaloff>:/icons/move.png</iconset>
+   </property>
+   <property name="text">
+    <string>Move</string>
+   </property>
+   <property name="toolTip">
+    <string>Move the tiles</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -1,11 +1,26 @@
 #include "map.h"
+#include <iostream>
 #include <QFile>
 #include <QTextStream>
 #include <QGraphicsSceneDragDropEvent>
 #include <QMessageBox>
 
 Map::Map(QObject * parent):
-    QGraphicsScene(parent)
+    QGraphicsScene(parent),
+    size_(5000,5000),
+    tile_size_(32,32),
+    grid_image_(size_)
+{
+    filename_ = "";
+    if(!background_image_.load(QString(".\\images\\changeme.bmp")))
+    {
+        QMessageBox::critical(0,tr("Warning"),tr("No object found"));
+    }
+    this->setSceneRect(0, 0, size_.width(), size_.height());
+}
+
+Map::Map(QGraphicsView * init_view , QObject * parent)
+    :QGraphicsScene(parent)
 {
     filename_ = "";
     if(!background_image_.load(QString(".\\images\\changeme.bmp")))
@@ -14,66 +29,47 @@ Map::Map(QObject * parent):
     }
     size_.setHeight(5000);
     size_.setWidth(5000);
-    this->setSceneRect(0, 0, size_.width(), size_.height());
-}
-
-Map::Map(QGraphicsView * init_view , QObject * parent)
-    :QGraphicsScene(parent)
-{
+    tile_size_.setHeight(32);
+    tile_size_.setWidth(32);
     view_ = init_view;
     view_->setScene(this);
-    background_image_.load("images\\changeme.bmp");
     this->setSceneRect(0, 0, size_.width(), size_.height());
+    drawGrid();
 }
 
-void Map::init(QGraphicsView * init_view)
+void Map::init(QGraphicsView * init_view , ToolBar * toolbar)
 {
+    toolbar_ = toolbar;
     view_ = init_view;
     view_->setScene(this);
-    this->setSceneRect(0,0,view_->width(),view_->height());
+    this->setSceneRect(0,0,size_.width(),size_.height());
+    drawGrid();
 }
 
 void Map::drawBackground(QPainter * painter, const QRectF & rect)
 {
-    painter->drawPixmap(static_cast<int>(rect.x()), static_cast<int>(rect.y()), view_->width(), view_->height(), background_image_ );
+    QRectF buffer = rect;
+    buffer = view_->mapToScene(QRect(view_->rect()) ).boundingRect();
+    painter->drawPixmap( buffer, background_image_ , background_image_.rect());
+    painter->drawPixmap( grid_image_.rect(), grid_image_ , this->sceneRect());
+}
+
+void Map::mouseMoveEvent(QGraphicsSceneMouseEvent * mouseEvent)
+{
+    toolbar_->mapMoved(mouseEvent);
+    QGraphicsScene::mouseMoveEvent(mouseEvent);
 }
 
 void Map::mousePressEvent(QGraphicsSceneMouseEvent * mouseEvent)
 {
-    std::shared_ptr<ObjectType> current_object_type = current_type_->get_current_type();
-    bool unique = true;
-    for(auto a : types_)
-    {
-        if(*a == *current_object_type)
-        {
-            current_object_type = a;
-            unique = false;
-            break;
-        }
-    }
-    if(unique)
-    {
-        types_.push_back(current_object_type);
-    }
-    Qt::MouseButtons buttons = mouseEvent->buttons();
-    if(!buttons.testFlag(Qt::LeftButton) || current_object_type->get_picture().first.isNull())
-    {
-        QMessageBox::critical(view_,tr("Warning"),tr("Lol"));
-        return;
-    }
-    std::shared_ptr<Object> buffer;
-    QPixmap pixmap_buffer(current_object_type->get_picture().first);
-    pixmap_buffer = pixmap_buffer.copy(current_object_type->get_picture().second);
-    buffer->setPixmap(pixmap_buffer);
-    QRect buffer_rect;
-    QPointF object_point = mouseEvent->buttonDownScenePos(Qt::LeftButton);
-    buffer_rect.setX(object_point.x());
-    buffer_rect.setY(object_point.y());
-    buffer_rect.setSize(current_object_type->get_size());
-    buffer->change_rect(buffer_rect);
-    buffer->change_type(current_object_type);
-    tiles_.push_back(buffer);
-    this->addItem(buffer.get());
+    toolbar_->mapPressed(mouseEvent);
+    QGraphicsScene::mousePressEvent(mouseEvent);
+}
+
+void Map::mouseReleaseEvent(QGraphicsSceneMouseEvent * mouseEvent)
+{
+    toolbar_->mapReleased(mouseEvent);
+    QGraphicsScene::mouseReleaseEvent(mouseEvent);
 }
 
 void Map::open(QString filename)
@@ -112,6 +108,23 @@ void Map::open(QString filename)
         }
         else if (id_buffer == OBJECT)
         {
+            Object buffer;
+            int x,y;
+            unsigned int id;
+            in>>id;
+            in>>x>>y;
+            buffer.change_rect(QPoint(x,y));
+            for(auto a : types_)
+            {
+                if(a->get_id() == id)
+                {
+                    buffer.change_type(a);
+                    buffer.setPixmap(a->);
+                    break;
+                }
+            }
+            std::shared_ptr<Object> pointer_object = std::make_shared<Object>(buffer);
+            this->
 
         }
         else if (id_buffer == BACKGROUND)
@@ -120,11 +133,24 @@ void Map::open(QString filename)
             in >> background;
             changeBackground(background);
         }
+        else if (id_buffer == SIZE)
+        {
+            int h,w;
+            in>> w >> h;
+            size_.setHeight(h);
+            size_.setWidth(w);
+            this->setSceneRect(0,0,w,h);
+            drawGrid();
+        }
     }
 }
 
 void Map::save()
 {
+    if(filename_ == "")
+    {
+        return;
+    }
     QFile file(filename_);
     file.open(QIODevice::WriteOnly);
     QTextStream out(&file);
@@ -168,4 +194,23 @@ void Map::changeSize()
 void Map::setCurrentType(CurrentType * init_type)
 {
     current_type_ = init_type;
+}
+
+void Map::drawGrid()
+{
+    grid_image_ = grid_image_.scaled(size_);
+    grid_image_.fill(Qt::transparent);
+    QPainter painter (&grid_image_);
+    painter.setPen(QPen(QBrush(Qt::gray,Qt::Dense5Pattern),1));
+    //draw vertical lines
+    for(int a = 0 ; a <= size_.width() / tile_size_.width() ; a++ )
+    {
+        painter.drawLine(tile_size_.width() * a, 0, tile_size_.width() * a, size_.height());
+    }
+    painter.setPen(QPen(QBrush(Qt::gray,Qt::Dense6Pattern),1));
+    //draw horizontal lines
+    for(int a = 0 ; a <= size_.height() / tile_size_.height() ; a++ )
+    {
+        painter.drawLine(0, tile_size_.height() * a, size_.width(), tile_size_.height() * a);
+    }
 }

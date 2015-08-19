@@ -7,6 +7,7 @@
 #include "currenttype.h"
 #include "tilesetmanager.h"
 #include "map.h"
+#include "toolbar.h"
 
 namespace Ui {
 class MainWindow;
@@ -30,8 +31,6 @@ private slots:
 
     void on_deleteButton_clicked();
 
-    void on_comboBox_editTextChanged(const QString &arg1);
-
     void on_lineEdit_textChanged(const QString &arg1);
 
     void on_actionChange_background_triggered();
@@ -42,12 +41,21 @@ private slots:
 
     void on_actionResize_triggered();
 
+    void on_actionDraw_triggered();
+
+    void on_actionErase_triggered();
+
+    void on_actionMove_triggered();
+
+    void on_comboBox_currentIndexChanged(int index);
+
 private:
     CurrentType current_type;
-    Map main_map;
+    Map * main_map;
     QGraphicsScene * scene;
     TileSetManager * tilesets_manager;
     Ui::MainWindow * ui;
+    ToolBar toolbar;
 };
 
 #endif // MAINWINDOW_H
