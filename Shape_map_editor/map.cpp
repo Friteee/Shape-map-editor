@@ -82,6 +82,10 @@ void Map::open(QString filename)
     while(!in.atEnd())
     {
         in>>chunk_id;
+        if(in.atEnd())
+        {
+            break;
+        }
         MapChunkId id_buffer = static_cast<MapChunkId>(chunk_id);
         if(id_buffer == OBJECT_TYPE)
         {
@@ -103,28 +107,33 @@ void Map::open(QString filename)
             type_buffer.init(static_cast<Object_kind>(kind_buffer),QSize(w,h),static_cast<bool>(invincible));
             type_buffer.init_picture(image_buffer);
             std::shared_ptr<ObjectType> pointer_type = std::make_shared<ObjectType>(type_buffer);
+            std::cout<<id<<" "<<invincible<<" "<<w<<" "<<h<<" "<<kind_buffer<<std::endl;
             types_.push_back(pointer_type);
 
         }
         else if (id_buffer == OBJECT)
         {
-            Object buffer;
+            std::shared_ptr<Object> buffer = std::make_shared<Object>();
             int x,y;
             unsigned int id;
             in>>id;
             in>>x>>y;
-            buffer.change_rect(QPoint(x,y));
+            buffer->change_rect(QPoint(x,y));
             for(auto a : types_)
             {
                 if(a->get_id() == id)
                 {
-                    buffer.change_type(a);
-                    buffer.setPixmap(a->);
+                    buffer->change_type(a);
+                    QPixmap pixmap_buffer(a->get_picture().first);
+                    pixmap_buffer = pixmap_buffer.copy(a->get_picture().second);
+                    buffer->setPixmap(pixmap_buffer);
+                    buffer->setOffset(x,y);
                     break;
                 }
             }
-            std::shared_ptr<Object> pointer_object = std::make_shared<Object>(buffer);
-            this->
+            std::cout<<x<<" "<<y<<" "<<id<<" "<<std::endl;
+            tiles_.push_back(buffer);
+            this->addItem(buffer.get());
 
         }
         else if (id_buffer == BACKGROUND)
@@ -156,6 +165,25 @@ void Map::save()
     QTextStream out(&file);
     out<<static_cast<unsigned int>(SIZE)<<" "<<size_.width() <<" "<<size_.height()<<endl;
     out<<static_cast<unsigned int>(BACKGROUND)<<" "<<background_<<endl;
+    for(unsigned int a = 0; a< types_.size() ; a++)
+    {
+        types_[a]->set_id(a);
+    }
+    for(unsigned int a = 0; a< types_.size() ; a++)
+    {
+        out<<static_cast<unsigned int>(OBJECT_TYPE)<<" "<<types_[a]->get_id()<<" "<<types_[a]->get_picture().first<<" ";
+        out<<types_[a]->get_picture().second.x()<<" "<<types_[a]->get_picture().second.y()<<" "<<types_[a]->get_picture().second.width()<<" "<<types_[a]->get_picture().second.height()<<" ";
+        out<<types_[a]->get_invincibility()<<" "<<types_[a]->get_size().width()<<" ";
+        out<<types_[a]->get_size().height()<<" ";
+        out<<static_cast<unsigned int>(types_[a]->get_kind())<<endl;
+    }
+    for(unsigned int a = 0; a < tiles_.size() ; a++)
+    {
+        out<<static_cast<unsigned int>(OBJECT)<<" ";
+        out<<tiles_[a]->get_type()->get_id()<<" ";
+        out<<tiles_[a]->get_rect().x()<<" "<<tiles_[a]->get_rect().y();
+        out<<endl;
+    }
 }
 
 void Map::save(QString filename)
@@ -171,6 +199,14 @@ void Map::createNew(QString filename)
     file.open(QIODevice::WriteOnly);
     QTextStream out(&file);
     out<<static_cast<unsigned int>(SIZE)<<" "<<size_.width() <<" "<<size_.height()<<endl;
+    this->clear();
+    types_.clear();
+    types_.clear();
+    background_ = QString(".\\images\\changeme.bmp");
+    if(!background_image_.load(QString(".\\images\\changeme.bmp")))
+    {
+        QMessageBox::critical(0,tr("Warning"),tr("No object found"));
+    }
 }
 
 void Map::changeBackground(QString background)
