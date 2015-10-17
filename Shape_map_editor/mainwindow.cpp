@@ -28,7 +28,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionOpen_triggered()
 {
-    QString filename = QFileDialog::getOpenFileName(this, tr("Open Map"), "untitled", tr("Map files (*.shm)"));
+    QString filename = QFileDialog::getExistingDirectory(this, tr("Open Map"));
     if(filename.isNull())
         return;
     main_map->open(filename);
@@ -37,7 +37,7 @@ void MainWindow::on_actionOpen_triggered()
 
 void MainWindow::on_actionNew_triggered()
 {
-    QString filename = QFileDialog::getSaveFileName(this,tr("New Map"), "untitled" , tr("Map files (*.shm)"));
+    QString filename = QFileDialog::getExistingDirectory(this,tr("New Map"));
     if(filename.isNull())
         return;
     main_map->save();
@@ -46,7 +46,7 @@ void MainWindow::on_actionNew_triggered()
 
 void MainWindow::on_actionSave_as_triggered()
 {
-    QString filename = QFileDialog::getSaveFileName(this,tr("New Map"), "untitled" , tr("Map files (*.shm)"));
+    QString filename = QFileDialog::getExistingDirectory(this,tr("New Map"));
     if(filename.isNull())
         return;
     main_map->save(filename);

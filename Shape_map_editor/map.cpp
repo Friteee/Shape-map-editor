@@ -1,6 +1,8 @@
 #include "map.h"
 #include <iostream>
 #include <QFile>
+#include <QFileInfo>
+#include <QDir>
 #include <QTextStream>
 #include <QGraphicsSceneDragDropEvent>
 #include <QMessageBox>
@@ -11,7 +13,7 @@ Map::Map(QObject * parent):
     tile_size_(32,32),
     grid_image_(size_)
 {
-    filename_ = "";
+    directory_ = "";
     if(!background_image_.load(QString(".\\images\\changeme.bmp")))
     {
         QMessageBox::critical(0,tr("Warning"),tr("No object found"));
@@ -22,7 +24,7 @@ Map::Map(QObject * parent):
 Map::Map(QGraphicsView * init_view , QObject * parent)
     :QGraphicsScene(parent)
 {
-    filename_ = "";
+    directory_ = "";
     if(!background_image_.load(QString(".\\images\\changeme.bmp")))
     {
         QMessageBox::critical(0,tr("Warning"),tr("No object found"));
@@ -74,14 +76,20 @@ void Map::mouseReleaseEvent(QGraphicsSceneMouseEvent * mouseEvent)
 
 void Map::open(QString filename)
 {
-    filename_ = filename;
-    QFile file(filename_);
+    directory_ = filename;
+    QFile file(directory_ + "/" + QDir(directory_).dirName() + ".shm");
+    if(!file.exists())
+    {
+        QMessageBox::critical(view_,tr("Warning"), tr("No map in specified folder") + directory_ + "/" + QDir(directory_).dirName() + ".shm");
+        return;
+    }
     file.open(QIODevice::ReadOnly);
     QTextStream in(&file);
     unsigned int chunk_id;
     while(!in.atEnd())
     {
         in>>chunk_id;
+        std::cout<<chunk_id<<" ";
         if(in.atEnd())
         {
             break;
@@ -156,11 +164,11 @@ void Map::open(QString filename)
 
 void Map::save()
 {
-    if(filename_ == "")
+    if(directory_ == "")
     {
         return;
     }
-    QFile file(filename_);
+    QFile file(directory_ + "/" + QDir(directory_).dirName() + ".shm");
     file.open(QIODevice::WriteOnly);
     QTextStream out(&file);
     out<<static_cast<unsigned int>(SIZE)<<" "<<size_.width() <<" "<<size_.height()<<endl;
@@ -188,14 +196,14 @@ void Map::save()
 
 void Map::save(QString filename)
 {
-    filename_ = filename;
+    directory_ = filename;
     save();
 }
 
 void Map::createNew(QString filename)
 {
-    filename_ = filename;
-    QFile file(filename_);
+    directory_ = filename;
+    QFile file(directory_ + "/" + QDir(directory_).dirName() + ".shm");
     file.open(QIODevice::WriteOnly);
     QTextStream out(&file);
     out<<static_cast<unsigned int>(SIZE)<<" "<<size_.width() <<" "<<size_.height()<<endl;
@@ -211,6 +219,12 @@ void Map::createNew(QString filename)
 
 void Map::changeBackground(QString background)
 {
+    QFile file(background);
+    QFileInfo info(file);
+    if (!info == directory_)
+    {
+
+    }
     if(!background_image_.load(background))
     {
         background_image_.load(background_);
@@ -218,6 +232,7 @@ void Map::changeBackground(QString background)
     else
     {
         background_ = background;
+
     }
 }
 

@@ -71,7 +71,7 @@ private:
     QPixmap                                  grid_image_;
     QString                                  background_;
     QPixmap                                  background_image_;
-    QString                                  filename_;
+    QString                                  directory_;
     ToolBar *                                toolbar_;
 
     friend class MapSettings;
